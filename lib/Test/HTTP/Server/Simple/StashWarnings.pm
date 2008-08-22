@@ -107,7 +107,7 @@ Test::HTTP::Server::Simple::StashWarnings - catch your forked server's warnings
     $mech->get("$url_root/some_action");
 
     $mech->get("/__test_warnings");
-    my @warnings = Storable::thaw(@{ $mech->content });
+    my @warnings = My::WebServer::Test->decode_warnings($mech->content);
     is(@warnings, 0, "some_action gave no warnings");
 
 =head1 DESCRIPTION
@@ -133,9 +133,10 @@ you'll be able to see when your application throws new, unexpected warnings.
 The way this module works is it catches warnings and makes them available on a
 special URL (which must be defined by you in the C<test_warning_path> method).
 You can use C<WWW::Mechanize> (or whichever HTTP agent you prefer) to download
-the warnings. The warnings will be serialized with L<Storable/nfreeze>. Use
-L<Storable/thaw> to get an array reference of warnings seen so far (since last
-request anyway).
+the warnings. The warnings will be serialized. Use L<decode_warnings> to get
+the list of warnings seen so far (since last request anyway).
+
+Warnings are encoded using L<Storable> by default, but your subclass may override the C<encode_warnings> and C<decode_warnings> methods.
 
 =head1 COPYRIGHT & LICENSE
 

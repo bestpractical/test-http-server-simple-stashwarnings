@@ -12,13 +12,13 @@ my $mech = WWW::Mechanize->new;
 $mech->get("$url/no_warnings");
 
 $mech->get("/__test_warnings");
-my @warnings = @{ thaw($mech->content) };
+my @warnings = My::Test::Server->decode_warnings($mech->content);
 is(@warnings, 0, "no warnings yet");
 
 $mech->get("$url/warn");
 
 $mech->get("$url/__test_warnings");
-@warnings = @{ thaw($mech->content) };
+@warnings = My::Test::Server->decode_warnings($mech->content);
 is(@warnings, 1, "got a warning!");
 like($warnings[0], qr/^We're out of toilet paper sir!/);
 
@@ -26,7 +26,7 @@ $mech->get("$url/warn");
 $mech->get("$url/warn");
 
 $mech->get("$url/__test_warnings");
-@warnings = @{ thaw($mech->content) };
+@warnings = My::Test::Server->decode_warnings($mech->content);
 is(@warnings, 2, "got two warnings! warnings are cleared after fetching them");
 like($warnings[0], qr/^We're out of toilet paper sir!/);
 like($warnings[1], qr/^We're out of toilet paper sir!/);
