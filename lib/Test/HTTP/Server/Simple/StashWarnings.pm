@@ -5,6 +5,7 @@ use warnings;
 use base 'Test::HTTP::Server::Simple';
 
 use 5.008;
+our $VERSION = '0.01';
 
 use NEXT;
 use Storable ();
@@ -79,9 +80,59 @@ __END__
 
 Test::HTTP::Server::Simple::StashWarnings - catch your forked server's warnings
 
+=head1 SYNOPSIS
+
+    package My::Webserver;
+    use base qw/Test::HTTP::Server::Simple::StashWarnings HTTP::Server::Simple/;
+
+    sub test_warning_path { "/__test_warnings" }
+
+
+    package main;
+    use Test::More tests => 42;
+
+    my $s = My::WebServer->new;
+
+    my $url_root = $s->started_ok("start up my web server");
+
+    my $mech = WWW::Mechanize->new;
+
+    $mech->get("$url_root/some_action");
+
+    $mech->get("/__test_warnings");
+    my @warnings = Storable::thaw(@{ $mech->content });
+    is(@warnings, 0, "some_action gave no warnings");
+
+=head1 DESCRIPTION
+
+Warnings are an important part of any application. Your web application should
+warn the user when something is amiss.
+
+Almost as importantly, we want to be able to test that the web application
+gracefully copes with bad input, the back button, and all other aspects of the
+user experience.
+
+Unfortunately, tests seldom cover what happens when things go poorly. Are you
+C<sure> that your application checks authorization for that action? Are you
+C<sure> it will tomorrow?
+
+This module lets you retrieve the warnings that your forked server throws. That
+way you can test that your application continues to throw warnings when it
+makes sense. Catching the warnings also keeps your test output tidy. Finally,
+you'll be able to see when your application throws new, unexpected warnings.
+
+=head1 SETUP
+
+The way this module works is it catches warnings and makes them available on a
+special URL (which must be defined by you in the C<test_warning_path> method).
+You can use C<WWW::Mechanize> (or whichever HTTP agent you prefer) to download
+the warnings. The warnings will be serialized with L<Storable/nfreeze>. Use
+L<Storable/thaw> to get an array reference of warnings seen so far (since last
+request anyway).
+
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007-2008 Best Practical Solutions.
+Copyright 2008 Best Practical Solutions.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
