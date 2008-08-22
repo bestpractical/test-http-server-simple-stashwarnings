@@ -31,7 +31,7 @@ sub handler {
 
     if ($self->{thss_test_path_hit}) {
         my @warnings = splice @{ $self->{'thss_stashed_warnings'} };
-        my $content  = Storable::nfreeze(\@warnings);
+        my $content  = $self->encode_warnings(@warnings);
 
         print "HTTP/1.0 200 OK\r\n";
         print "Content-Type: application/x-perl\r\n";
@@ -56,6 +56,13 @@ sub setup {
     }
 
     return $self->NEXT::setup(@_);
+}
+
+sub encode_warnings {
+    my $self = shift;
+    my @warnings = @_;
+
+    return Storable::nfreeze(\@warnings);
 }
 
 sub decode_warnings {
