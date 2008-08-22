@@ -82,8 +82,8 @@ Test::HTTP::Server::Simple::StashWarnings - catch your forked server's warnings
 
 =head1 SYNOPSIS
 
-    package My::Webserver;
-    use base qw/Test::HTTP::Server::Simple::StashWarnings HTTP::Server::Simple/;
+    package My::Webserver::Test;
+    use base qw/Test::HTTP::Server::Simple::StashWarnings My::Webserver/;
 
     sub test_warning_path { "/__test_warnings" }
 
@@ -91,7 +91,7 @@ Test::HTTP::Server::Simple::StashWarnings - catch your forked server's warnings
     package main;
     use Test::More tests => 42;
 
-    my $s = My::WebServer->new;
+    my $s = My::WebServer::Test->new;
 
     my $url_root = $s->started_ok("start up my web server");
 
