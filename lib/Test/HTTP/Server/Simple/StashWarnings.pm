@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use base 'Test::HTTP::Server::Simple';
 
+use 5.008;
+
 use NEXT;
 use Storable ();
 
@@ -70,4 +72,19 @@ sub DESTROY {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Test::HTTP::Server::Simple::StashWarnings - catch your forked server's warnings
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2007-2008 Best Practical Solutions.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 
