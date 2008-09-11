@@ -49,6 +49,8 @@ sub setup {
     my $self = shift;
     my @copy = @_;
 
+    delete $self->{thss_test_path_hit};
+
     while (my ($item, $value) = splice @copy, 0, 2) {
         if ($item eq 'request_uri') {
             $self->{thss_test_path_hit} = $value eq $self->test_warning_path;
