@@ -143,6 +143,12 @@ the list of warnings seen so far (since last request anyway).
 
 Warnings are encoded using L<Storable> by default, but your subclass may override the C<encode_warnings> and C<decode_warnings> methods.
 
+=head1 TIPS
+
+Setting the C<TEST_VERBOSE> environment variable to a true value will cause
+warnings to be displayed immediately, even if they would be captured and tested
+later.
+
 =head1 AUTHOR
 
 Shawn M Moore, C<< <sartak at bestpractical.com> >>

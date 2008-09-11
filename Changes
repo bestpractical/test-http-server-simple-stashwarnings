@@ -1,0 +1,6 @@
+Revision history for Test-HTTP-Server-Simple-StashWarnings
+
+0.02
+        Canonicalize away multiple /s at the beginning of the URL
+        Ensure that the fact that the test path hit does not linger
+
