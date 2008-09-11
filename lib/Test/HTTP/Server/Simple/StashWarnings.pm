@@ -138,6 +138,17 @@ the list of warnings seen so far (since last request anyway).
 
 Warnings are encoded using L<Storable> by default, but your subclass may override the C<encode_warnings> and C<decode_warnings> methods.
 
+=head1 AUTHOR
+
+Shawn M Moore, C<< <sartak at bestpractical.com> >>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to
+C<bug-test-http-server-simple-stashwarnings at rt.cpan.org>, or through the web
+interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=test-http-server-simple-stashwarnings>.
+
 =head1 COPYRIGHT & LICENSE
 
 Copyright 2008 Best Practical Solutions.
