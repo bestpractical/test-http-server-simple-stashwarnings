@@ -5,7 +5,7 @@ use warnings;
 use base 'Test::HTTP::Server::Simple';
 
 use 5.008;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use NEXT;
 use Storable ();
