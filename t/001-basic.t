@@ -42,6 +42,7 @@ BEGIN {
         if ($cgi->path_info eq '/warn') {
             warn "We're out of toilet paper sir!";
         }
+        print "Here's the content!";
     }
 
     sub test_warning_path { "/__test_warnings" }
