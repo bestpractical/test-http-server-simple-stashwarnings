@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use Test::More tests => 8;
 use WWW::Mechanize;
-use Storable 'thaw';
 
 my $url = My::Test::Server->new->started_ok("created test server");
 ok($url, "got a url: $url");
